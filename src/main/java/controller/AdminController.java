@@ -52,8 +52,8 @@ public class AdminController extends HttpServlet {
 		else if (action.equals("studentList")) {
 			StudentDAO studentDAO = new StudentDAO();
 			List<Student> studentList = studentDAO.findAll();
-			req.setAttribute("studentList", studentList);
-			req.getRequestDispatcher("view/admin/studentList.jsp").forward(req, resp);
+			req.getSession().setAttribute("studentList", studentList);
+		    req.getRequestDispatcher("view/admin/studentList.jsp").forward(req, resp);
 			return;
 		}
 
@@ -224,8 +224,19 @@ public class AdminController extends HttpServlet {
 		    return;
 		}
 		
-		else
+		else if (action.equals("deleteStudentForm")) {
+			String studentID = req.getParameter("studentID");
+		    req.setAttribute("studentID", studentID);
+		    req.getRequestDispatcher("view/admin/deleteStudent.jsp").forward(req, resp);
+		    return;
+		}
+		
+		else if (action.equals("dashboard")) {
 			req.getRequestDispatcher("view/admin/dashboard.jsp").forward(req, resp);
+			return;
+		}
+		
+		req.getRequestDispatcher("view/admin/dashboard.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -301,7 +312,8 @@ public class AdminController extends HttpServlet {
 			} else if (studentDAO.isEmailExists(req.getParameter("email"), req.getParameter("studentID"))) {
 				message.append("Email đã tồn tại!<br>");
 			}
-
+			System.out.println(req.getParameter("email"));
+			System.out.println(req.getParameter("studentID"));
 			Student student = new Student();
 			student.setStudentID(req.getParameter("studentID"));
 			student.setName(req.getParameter("name"));
