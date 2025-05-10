@@ -174,51 +174,33 @@
                 </div>
             </div>
         </div>
-        <!-- Edit Teacher Modal -->
-        <div class="modal fade" id="editTeacherModal" tabindex="-1" aria-labelledby="editTeacherModalLabel" aria-hidden="true">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Delete Teacher Modal -->
+        <div class="modal fade" id="deleteTeacherModal" tabindex="-1" aria-labelledby="deleteTeacherModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Chỉnh sửa thông tin giáo viên <strong><c:out value="${teacher.teacherID}"/></strong></h5>
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">Xóa giáo viên</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <p>Bạn có chắc chắn muốn xóa giáo viên <strong><c:out value="${teacherID}"/></strong> không?</p>
+                        <p class="text-danger">Hành động này không thể hoàn tác!</p>
+                    </div>
+                    <div class="modal-footer">
                         <form action="admin" method="post">
-                            <input type="hidden" name="action" value="updateTeacher"/>
-                            <input type="hidden" name="teacherID" value="${teacher.teacherID}">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Họ tên</label>
-                                <input id="name" class="form-control" type="text" name="name" value="${teacher.name}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="gender" class="form-label">Giới tính</label>
-                                <select class="form-select" id="gender" name="gender" required>
-                                    <option value="">Chọn giới tính</option>
-                                    <option value="Nam" ${teacher.gender == 'Nam' ? 'selected' : ''}>Nam</option>
-                                    <option value="Nữ" ${teacher.gender == 'Nữ' ? 'selected' : ''}>Nữ</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="dob" class="form-label">Ngày sinh</label>
-                                <input id="dob" class="form-control" type="date" name="dob" value="${teacher.dob}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input id="email" class="form-control" type="email" name="email" value="${teacher.email}" required>
-                            </div>
-                            <div style="display: flex; flex-direction: row-reverse;">
-                                <button style="margin-left: 10px;" type="submit" class="btn btn-primary">Lưu</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                            </div>
+                            <input type="hidden" name="action" value="deleteTeacher"/>
+                            <input type="hidden" name="teacherID" value="${teacherID}"/>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-danger">Xóa</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             window.addEventListener('DOMContentLoaded', (event) => {
-                var myModal = new bootstrap.Modal(document.getElementById('editTeacherModal'));
+                var myModal = new bootstrap.Modal(document.getElementById('deleteTeacherModal'));
                 myModal.show();
             });
             </script>

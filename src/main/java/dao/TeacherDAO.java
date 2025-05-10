@@ -116,8 +116,7 @@ public class TeacherDAO {
 			Connection conn = dbConn.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, teacherID);
-			int row = pstmt.executeUpdate();
-			System.out.println("Da xoa " + row + "dong.");
+			pstmt.executeUpdate();
 			conn.close();
 			pstmt.close();
 		} catch (Exception e) {

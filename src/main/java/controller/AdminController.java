@@ -36,7 +36,7 @@ public class AdminController extends HttpServlet {
 		if (action.equals("teacherList")) {
 			TeacherDAO teacherDAO = new TeacherDAO();
 			List<Teacher> teacherList = teacherDAO.findAll();
-			req.setAttribute("teacherList", teacherList);
+			req.getSession().setAttribute("teacherList", teacherList);
 			req.getRequestDispatcher("view/admin/teacherList.jsp").forward(req, resp);
 			return;
 		}
@@ -221,6 +221,13 @@ public class AdminController extends HttpServlet {
 		    Account account = accountDAO.findByID(accountID);
 		    req.setAttribute("account", account);
 		    req.getRequestDispatcher("view/admin/updateAccount.jsp").forward(req, resp);
+		    return;
+		}
+		
+		else if (action.equals("deleteTeacherForm")) {
+			String teacherID = req.getParameter("teacherID");
+		    req.setAttribute("teacherID", teacherID);
+		    req.getRequestDispatcher("view/admin/deleteTeacher.jsp").forward(req, resp);
 		    return;
 		}
 		
