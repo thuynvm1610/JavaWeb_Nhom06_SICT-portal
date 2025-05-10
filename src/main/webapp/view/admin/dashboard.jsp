@@ -99,7 +99,7 @@
                                     <div class="card text-white bg-primary mb-3">
                                         <div class="card-body">
                                             <h5 class="card-title">Tài khoản người dùng</h5>
-                                            <p class="card-text display-6">1,024</p>
+                                            <p class="card-text display-6">${totalAccount}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                     <div class="card text-white bg-success mb-3">
                                         <div class="card-body">
                                             <h5 class="card-title">Sinh viên</h5>
-                                            <p class="card-text display-6">850</p>
+                                            <p class="card-text display-6">${totalStudent}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -115,7 +115,7 @@
                                     <div class="card text-white bg-info mb-3">
                                         <div class="card-body">
                                             <h5 class="card-title">Giáo viên</h5>
-                                            <p class="card-text display-6">45</p>
+                                            <p class="card-text display-6">${totalTeacher}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                                     <div class="card text-white bg-warning mb-3">
                                         <div class="card-body">
                                             <h5 class="card-title">Lớp học</h5>
-                                            <p class="card-text display-6">32</p>
+                                            <p class="card-text display-6">${totalClassroom}</p>
                                         </div>
                                     </div>
                                 </div>

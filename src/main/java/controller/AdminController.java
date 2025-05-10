@@ -253,6 +253,19 @@ public class AdminController extends HttpServlet {
 		}
 		
 		else if (action.equals("dashboard")) {
+			StudentDAO studentDAO = new StudentDAO();
+			int totalStudent = studentDAO.totalStudent();
+			ClassroomDAO classroomDAO = new ClassroomDAO();
+			int totalClassroom = classroomDAO.totalClassroom();
+			TeacherDAO teacherDAO = new TeacherDAO();
+			int totalTeacher = teacherDAO.totalTeacher();
+			AccountDAO accountDAO = new AccountDAO();
+			int totalAccount = accountDAO.totalAccount();
+			req.setAttribute("totalStudent", totalStudent);
+			req.setAttribute("totalClassroom", totalClassroom);
+			req.setAttribute("totalTeacher", totalTeacher);
+			req.setAttribute("totalAccount", totalAccount);
+			System.out.println(totalStudent);
 			req.getRequestDispatcher("view/admin/dashboard.jsp").forward(req, resp);
 			return;
 		}

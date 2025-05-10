@@ -117,4 +117,25 @@ public class ClassroomDAO {
 		return true;
 	}
 
+	public int totalClassroom() {
+		String sql = "select count(*) from classroom";
+		DBConnect dbConn = new DBConnect();
+		try {
+			Connection conn = dbConn.getConnection();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			int result = 0;
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+			conn.close();
+			stmt.close();
+			rs.close();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
 }
