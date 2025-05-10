@@ -36,7 +36,7 @@
                                 </button>
                             </form>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <form method="get" action="admin">
                                 <input type="hidden" name="action" value="accountList">
                                 <button type="submit" class="sidebar-btn">
@@ -69,7 +69,7 @@
                                 </button>
                             </form>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <form method="get" action="admin">
                                 <input type="hidden" name="action" value="classroomList">
                                 <button type="submit" class="sidebar-btn">
@@ -96,25 +96,25 @@
                 <!-- Main content -->
                 <div class="col-md-10 main-content">
                     <div class="tab-content">
-                        <!-- Students Tab -->
+                        <!-- Classrooms Tab -->
                         <div>
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h2>Quản lý thông tin tài khoản</h2>
+                                <h2>Quản lý thông tin lớp học</h2>
                                 <form method="get" action="admin">
-                                    <input type="hidden" name="action" value="addAccountForm"/>
+                                    <input type="hidden" name="action" value="addClassroomForm"/>
                                     <button class="btn btn-primary" type="submit">
                                         <i class="fas fa-plus me-1"></i>
-                                        Thêm tài khoản
+                                        Thêm lớp học
                                     </button>
                                 </form>
                             </div>
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                    <span>Danh sách tài khoản</span>
+                                    <span>Danh sách lơp học</span>
                                     <form method="get" action="admin">
                                         <div style="display: flex;">
-                                            <input type="hidden" name="action" value="searchAccount"/> 
-                                            <input style="outline: none; border: none; border-bottom-left-radius: 6px; border-top-left-radius: 6px; padding-left: 10px;" type="text" name="accountID" placeholder="Nhập mã tài khoản..."/>
+                                            <input type="hidden" name="action" value="searchClassroom"/>
+                                            <input style="outline: none; border: none; border-bottom-left-radius: 6px; border-top-left-radius: 6px; padding-left: 10px;" type="text" name="classroomID" placeholder="Nhập mã lớp học..."/>
                                             <button class="btn btn-outline-secondary" type="submit">
                                                 <i class="fas fa-search"></i>
                                             </button>
@@ -127,34 +127,30 @@
                                             <table class="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>Mã tài khoản</th>
-                                                        <th>Tên tài khoản</th>
-                                                        <th>Mật khẩu</th>
-                                                        <th>Quyền đăng nhập</th>
-                                                        <th>Mã SV</th>
+                                                        <th>Mã lớp</th>
+                                                        <th>Tên lớp</th>
+                                                        <th>Mã GV</th>
                                                         <th>Hành động</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="a" items="${accountList}">
+                                                    <c:forEach var="c" items="${classroomList}">
                                                         <tr>
-                                                            <td>${a.accountID}</td>
-                                                            <td>${a.username}</td>
-                                                            <td>${a.password}</td>
-                                                            <td>${a.role}</td>
-                                                            <td>${a.studentID}</td>
+                                                            <td>${c.classroomID}</td>
+                                                            <td>${c.name}</td>
+                                                            <td>${c.teacherID}</td>
                                                             <td>
                                                                 <div style="display: flex; gap: 5px;">
                                                                     <form method="get" action="admin">
-                                                                        <input type="hidden" name="action" value="updateAccountForm"/>
-                                                                        <input type="hidden" name="accountID" value="${a.accountID}"/>
+                                                                        <input type="hidden" name="action" value="updateClassroomForm"/>
+                                                                        <input type="hidden" name="classroomID" value="${c.classroomID}"/>
                                                                         <button class="btn btn-sm btn-warning" type="submit">
                                                                             <i class="fas fa-edit"></i>
                                                                         </button>
                                                                     </form>
                                                                     <form method="get" action="admin">
-                                                                        <input type="hidden" name="action" value="deleteAccountForm"/>
-                                                                        <input type="hidden" name="accountID" value="${a.accountID}"/>
+                                                                        <input type="hidden" name="action" value="deleteClassroomForm"/>
+                                                                        <input type="hidden" name="classroomID" value="${c.classroomID}"/>
                                                                         <button class="btn btn-sm btn-danger" type="submit">
                                                                             <i class="fas fa-trash"></i>
                                                                         </button>
@@ -174,77 +170,34 @@
                 </div>
             </div>
         </div>
-        <!-- Edit Account Modal -->
-        <div class="modal fade" id="editAccountModal" tabindex="-1" aria-labelledby="editAccountModalLabel" aria-hidden="true">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Delete Classroom Modal -->
+        <div class="modal fade" id="deleteClassroomModal" tabindex="-1" aria-labelledby="deleteClassroomModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Chỉnh sửa thông tin tài khoản <strong><c:out value="${account.accountID}"/></strong></h5>
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">Xóa lớp học</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <p>Bạn có chắc chắn muốn xóa lớp học <strong><c:out value="${classroomID}"/></strong> không?</p>
+                        <p class="text-danger">Hành động này không thể hoàn tác!</p>
+                    </div>
+                    <div class="modal-footer">
                         <form action="admin" method="post">
-                            <input type="hidden" name="action" value="updateAccount"/>
-                            <input type="hidden" name="accountID" value="${account.accountID}">
-                            <input type="hidden" name="oldStudentID" value="${account.studentID}">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Tên TK</label>
-                                <input id="username" class="form-control" type="text" name="username" value="${account.username}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Mật khẩu</label>
-                                <input id="password" class="form-control" type="text" name="password" value="${account.password}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="role" class="form-label">Quyền đăng nhập</label>
-                                <select class="form-select" id="role" name="role" required>
-                                    <option value="">Chọn quyền</option>
-                                    <option value="student" ${account.role == 'student' ? 'selected' : ''}>Student</option>
-                                    <option value="admin" ${account.role == 'admin' ? 'selected' : ''}>Admin</option>
-                                </select>
-                            </div>
-                            <div class="mb-3" id="studentIDField">
-                                <label for="studentID" class="form-label">Mã SV</label>
-                                <input id="studentID" class="form-control" type="text" name="studentID" value="${account.studentID}" required>
-                            </div>
-                            <div style="display: flex; flex-direction: row-reverse;">
-                                <button style="margin-left: 10px;" type="submit" class="btn btn-primary">Lưu</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                            </div>
+                            <input type="hidden" name="action" value="deleteClassroom"/>
+                            <input type="hidden" name="classroomID" value="${classroomID}"/>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-danger">Xóa</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             window.addEventListener('DOMContentLoaded', (event) => {
-                var myModal = new bootstrap.Modal(document.getElementById('editAccountModal'));
+                var myModal = new bootstrap.Modal(document.getElementById('deleteClassroomModal'));
                 myModal.show();
-            });
-
-            function toggleStudentIDField() {
-                const roleSelect = document.getElementById("role");
-                const studentIDField = document.getElementById("studentIDField");
-                const studentIDInput = document.getElementById("studentID");
-
-                if (roleSelect.value === "student") {
-                    studentIDField.style.display = "block";
-                    studentIDInput.required = true;
-                } else {
-                    studentIDField.style.display = "none";
-                    studentIDInput.required = false;
-                }
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const roleSelect = document.getElementById("role");
-
-                // Gọi hàm ban đầu để thiết lập trạng thái đúng
-                toggleStudentIDField();
-
-                // Lắng nghe sự kiện khi thay đổi lựa chọn
-                roleSelect.addEventListener("change", toggleStudentIDField);
             });
         </script>
     </body>

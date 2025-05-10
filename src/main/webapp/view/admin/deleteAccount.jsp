@@ -174,77 +174,34 @@
                 </div>
             </div>
         </div>
-        <!-- Edit Account Modal -->
-        <div class="modal fade" id="editAccountModal" tabindex="-1" aria-labelledby="editAccountModalLabel" aria-hidden="true">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Delete Account Modal -->
+        <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Chỉnh sửa thông tin tài khoản <strong><c:out value="${account.accountID}"/></strong></h5>
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">Xóa tài khoản</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <p>Bạn có chắc chắn muốn xóa tài khoản <strong><c:out value="${accountID}"/></strong> không?</p>
+                        <p class="text-danger">Hành động này không thể hoàn tác!</p>
+                    </div>
+                    <div class="modal-footer">
                         <form action="admin" method="post">
-                            <input type="hidden" name="action" value="updateAccount"/>
-                            <input type="hidden" name="accountID" value="${account.accountID}">
-                            <input type="hidden" name="oldStudentID" value="${account.studentID}">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Tên TK</label>
-                                <input id="username" class="form-control" type="text" name="username" value="${account.username}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Mật khẩu</label>
-                                <input id="password" class="form-control" type="text" name="password" value="${account.password}" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="role" class="form-label">Quyền đăng nhập</label>
-                                <select class="form-select" id="role" name="role" required>
-                                    <option value="">Chọn quyền</option>
-                                    <option value="student" ${account.role == 'student' ? 'selected' : ''}>Student</option>
-                                    <option value="admin" ${account.role == 'admin' ? 'selected' : ''}>Admin</option>
-                                </select>
-                            </div>
-                            <div class="mb-3" id="studentIDField">
-                                <label for="studentID" class="form-label">Mã SV</label>
-                                <input id="studentID" class="form-control" type="text" name="studentID" value="${account.studentID}" required>
-                            </div>
-                            <div style="display: flex; flex-direction: row-reverse;">
-                                <button style="margin-left: 10px;" type="submit" class="btn btn-primary">Lưu</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                            </div>
+                            <input type="hidden" name="action" value="deleteAccount"/>
+                            <input type="hidden" name="accountID" value="${accountID}"/>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-danger">Xóa</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script>
             window.addEventListener('DOMContentLoaded', (event) => {
-                var myModal = new bootstrap.Modal(document.getElementById('editAccountModal'));
+                var myModal = new bootstrap.Modal(document.getElementById('deleteAccountModal'));
                 myModal.show();
-            });
-
-            function toggleStudentIDField() {
-                const roleSelect = document.getElementById("role");
-                const studentIDField = document.getElementById("studentIDField");
-                const studentIDInput = document.getElementById("studentID");
-
-                if (roleSelect.value === "student") {
-                    studentIDField.style.display = "block";
-                    studentIDInput.required = true;
-                } else {
-                    studentIDField.style.display = "none";
-                    studentIDInput.required = false;
-                }
-            }
-
-            document.addEventListener("DOMContentLoaded", function () {
-                const roleSelect = document.getElementById("role");
-
-                // Gọi hàm ban đầu để thiết lập trạng thái đúng
-                toggleStudentIDField();
-
-                // Lắng nghe sự kiện khi thay đổi lựa chọn
-                roleSelect.addEventListener("change", toggleStudentIDField);
             });
         </script>
     </body>

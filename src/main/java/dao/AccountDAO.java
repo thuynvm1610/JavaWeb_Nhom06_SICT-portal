@@ -123,9 +123,14 @@ public class AccountDAO {
 		return true;
 	}
 
-	public boolean isStudentIDUsed(String studentID, String role) {
-		if (role.equals("admin")) return false;
-		else {
+	public boolean isStudentIDUsed(String studentID, String oldStudentID, String role) {
+		if (role.equals("admin")) {
+			return false;
+		}
+		else if (role.equals("student") & studentID.equals(oldStudentID)) {
+			return false;
+		}
+		else if (role.equals("student") & !studentID.equals(oldStudentID)) {
 			String sql = "select studentID from account where studentID = ?";
 			DBConnect dbConn = new DBConnect();
 			try {
@@ -142,15 +147,17 @@ public class AccountDAO {
 				return true;
 			}
 		}
+		return true;
 	}
 
-	public boolean isUsernameExists(String username) {
-		String sql = "select username from account where username = ?";
+	public boolean isUsernameExists(String username, String accountID) {
+		String sql = "select username from account where username = ? and accountID != ?";
 		DBConnect dbConn = new DBConnect();
 		try {
 			Connection conn = dbConn.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, username);
+			pstmt.setString(2, accountID);
 			ResultSet rs = pstmt.executeQuery();
 			boolean result = rs.next();
 			conn.close();

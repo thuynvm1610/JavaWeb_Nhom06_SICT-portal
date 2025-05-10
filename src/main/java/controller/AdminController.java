@@ -44,7 +44,7 @@ public class AdminController extends HttpServlet {
 		else if (action.equals("classroomList")) {
 			ClassroomDAO classroomDAO = new ClassroomDAO();
 			List<Classroom> classroomList = classroomDAO.findAll();
-			req.setAttribute("classroomList", classroomList);
+			req.getSession().setAttribute("classroomList", classroomList);
 			req.getRequestDispatcher("view/admin/classroomList.jsp").forward(req, resp);
 			return;
 		}
@@ -68,7 +68,7 @@ public class AdminController extends HttpServlet {
 		else if (action.equals("accountList")) {
 			AccountDAO accountDAO = new AccountDAO();
 			List<Account> accountList = accountDAO.findAll();
-			req.setAttribute("accountList", accountList);
+			req.getSession().setAttribute("accountList", accountList);
 			req.getRequestDispatcher("view/admin/accountList.jsp").forward(req, resp);
 			return;
 		}
@@ -231,10 +231,24 @@ public class AdminController extends HttpServlet {
 		    return;
 		}
 		
+		else if (action.equals("deleteClassroomForm")) {
+			String classroomID = req.getParameter("classroomID");
+		    req.setAttribute("classroomID", classroomID);
+		    req.getRequestDispatcher("view/admin/deleteClassroom.jsp").forward(req, resp);
+		    return;
+		}
+		
 		else if (action.equals("deleteStudentForm")) {
 			String studentID = req.getParameter("studentID");
 		    req.setAttribute("studentID", studentID);
 		    req.getRequestDispatcher("view/admin/deleteStudent.jsp").forward(req, resp);
+		    return;
+		}
+		
+		else if (action.equals("deleteAccountForm")) {
+			String accountID = req.getParameter("accountID");
+		    req.setAttribute("accountID", accountID);
+		    req.getRequestDispatcher("view/admin/deleteAccount.jsp").forward(req, resp);
 		    return;
 		}
 		
@@ -376,9 +390,9 @@ public class AdminController extends HttpServlet {
 
 			if (accountDAO.findByID(req.getParameter("accountID")) != null) {
 				message.append("Mã tài khoản đã tồn tại!<br>");
-			} else if (accountDAO.isUsernameExists(req.getParameter("username"))) {
+			} else if (accountDAO.isUsernameExists(req.getParameter("username"), req.getParameter("accountID"))) {
 				message.append("Tên tài khoản được sử dụng!<br>");
-			} else if (accountDAO.isStudentIDUsed(req.getParameter("studentID"), req.getParameter("role"))) {
+			} else if (accountDAO.isStudentIDUsed(req.getParameter("studentID"), null, req.getParameter("role"))) {
 				message.append("Mã sinh viên đã được sử dụng!<br>");
 			} else if (!studentDAO.isStudentExists(req.getParameter("studentID"), req.getParameter("role"))) {
 				message.append("Mã sinh viên không tồn tại!<br>");
@@ -512,10 +526,15 @@ public class AdminController extends HttpServlet {
 		
 		else if (action.equals("updateAccount")) {
 			AccountDAO accountDAO = new AccountDAO();
+			StudentDAO studentDAO = new StudentDAO();
 			StringBuilder message = new StringBuilder();
-
-			if (accountDAO.isUsernameExists(req.getParameter("username"))) {
+			
+			if (accountDAO.isUsernameExists(req.getParameter("username"), req.getParameter("accountID"))) {
 				message.append("Tên tài khoản đã được sử dụng!<br>");
+			} else if (accountDAO.isStudentIDUsed(req.getParameter("studentID"), req.getParameter("oldStudentID"), req.getParameter("role"))) {
+				message.append("Mã sinh viên đã được sử dụng!<br>");
+			} else if (!studentDAO.isStudentExists(req.getParameter("studentID"), req.getParameter("role"))) {
+				message.append("Mã sinh viên không tồn tại!<br>");
 			}
 
 			Account account = new Account();

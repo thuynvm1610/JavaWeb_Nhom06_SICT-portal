@@ -221,6 +221,6 @@
                 var myModal = new bootstrap.Modal(document.getElementById('editTeacherModal'));
                 myModal.show();
             });
-            </script>
+        </script>
     </body>
 </html>

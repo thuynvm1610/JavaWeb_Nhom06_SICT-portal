@@ -203,6 +203,6 @@
                 var myModal = new bootstrap.Modal(document.getElementById('deleteStudentModal'));
                 myModal.show();
             });
-            </script>
+        </script>
     </body>
 </html>
