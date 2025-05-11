@@ -5,25 +5,25 @@ use school;
 
 create table teacher (
     teacherID varchar(30) primary key,
-    name varchar(100),
-    gender enum('Nam','Nữ'),
-    dob date,
-    email varchar(100) unique
+    name varchar(100) not null,
+    gender enum('Nam','Nữ') not null,
+    dob date not null,
+    email varchar(100) unique not null
 );
 
 create table classroom (
     classroomID varchar(30) primary key,
-    name varchar(100),
-    teacherID varchar(30),
+    name varchar(100) not null,
+    teacherID varchar(30) not null,
 	constraint fk_class_teacherID foreign key (teacherID) references teacher(teacherID) on delete cascade
 );
 
 create table student (
     studentID varchar(30) primary key,
-    name varchar(100),
-    gender enum('Nam','Nữ'),
-    dob date,
-    email varchar(100) unique
+    name varchar(100) not null,
+    gender enum('Nam','Nữ') not null,
+    dob date not null,
+    email varchar(100) unique not null
 );
 
 create table student_classroom (
@@ -36,9 +36,9 @@ create table student_classroom (
 
 create table account (
     accountID varchar(30) primary key,
-    username varchar(50) unique,
-    password varchar(255),
-    role enum('admin','student'),
+    username varchar(50) unique not null,
+    password varchar(255) not null,
+    role enum('admin','student') not null,
     studentID varchar(30),
     constraint fk_account_studentID foreign key (studentID) references student(studentID) on delete cascade,
     constraint ck_studentID_role check ((role = 'admin' and studentID is null) or (role = 'student' and studentID is not null))
