@@ -35,8 +35,7 @@ public class StudentController extends HttpServlet {
 			req.setAttribute("studentID", studentID);
 			req.getRequestDispatcher("view/student/classroomList.jsp").forward(req, resp);
 			return;
-		} 
-		else if (action.equals("searchStudentListByClassroomID")) {
+		} else if (action.equals("searchStudentListByClassroomID")) {
 			String classroomID = req.getParameter("classroomID");
 			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
 			List<Student_classroom> student_classroomList = student_classroomDAO.findByID(classroomID, null);
@@ -46,24 +45,23 @@ public class StudentController extends HttpServlet {
 			}
 			req.getRequestDispatcher("view/student/classroomList.jsp").forward(req, resp);
 			return;
-		}
-		else if (action.equals("updateStudentForm")) {
-		    String studentID = req.getParameter("studentID");
-		    StudentDAO studentDAO = new StudentDAO();
-		    Student student = studentDAO.findByID(studentID);
-		    req.setAttribute("student", student);
-		    req.getRequestDispatcher("view/student/updateStudent.jsp").forward(req, resp);
-		    return;
+		} else if (action.equals("updateStudentForm")) {
+			String studentID = req.getParameter("studentID");
+			StudentDAO studentDAO = new StudentDAO();
+			Student student = studentDAO.findByID(studentID);
+			req.setAttribute("student", student);
+			req.getRequestDispatcher("view/student/updateStudent.jsp").forward(req, resp);
+			return;
 		}
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html;charset=UTF-8");
 
 		String action = req.getParameter("action");
-		
+
 		if (action.equals("updateStudent")) {
 			StudentDAO studentDAO = new StudentDAO();
 			StringBuilder message = new StringBuilder();

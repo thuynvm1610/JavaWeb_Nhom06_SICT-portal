@@ -127,9 +127,8 @@ public class TeacherDAO {
 	}
 
 	public boolean isEmailExists(String email, String teacherID) {
-		String sql = "select email from teacher where email = ? and teacherID != ? "
-	               + "union "
-	               + "select email from student where email = ?";
+		String sql = "select email from teacher where email = ? and teacherID != ? " + "union "
+				+ "select email from student where email = ?";
 		DBConnect dbConn = new DBConnect();
 		try {
 			Connection conn = dbConn.getConnection();

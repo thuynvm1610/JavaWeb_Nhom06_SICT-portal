@@ -126,11 +126,9 @@ public class AccountDAO {
 	public boolean isStudentIDUsed(String studentID, String oldStudentID, String role) {
 		if (role.equals("admin")) {
 			return false;
-		}
-		else if (role.equals("student") & studentID.equals(oldStudentID)) {
+		} else if (role.equals("student") & studentID.equals(oldStudentID)) {
 			return false;
-		}
-		else if (role.equals("student") & !studentID.equals(oldStudentID)) {
+		} else if (role.equals("student") & !studentID.equals(oldStudentID)) {
 			String sql = "select studentID from account where studentID = ?";
 			DBConnect dbConn = new DBConnect();
 			try {
@@ -190,5 +188,5 @@ public class AccountDAO {
 			return 0;
 		}
 	}
-	
+
 }

@@ -25,7 +25,7 @@ import model.Teacher;
 public class AdminController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -39,41 +39,31 @@ public class AdminController extends HttpServlet {
 			req.getSession().setAttribute("teacherList", teacherList);
 			req.getRequestDispatcher("view/admin/teacherList.jsp").forward(req, resp);
 			return;
-		}
-
-		else if (action.equals("classroomList")) {
+		} else if (action.equals("classroomList")) {
 			ClassroomDAO classroomDAO = new ClassroomDAO();
 			List<Classroom> classroomList = classroomDAO.findAll();
 			req.getSession().setAttribute("classroomList", classroomList);
 			req.getRequestDispatcher("view/admin/classroomList.jsp").forward(req, resp);
 			return;
-		}
-
-		else if (action.equals("studentList")) {
+		} else if (action.equals("studentList")) {
 			StudentDAO studentDAO = new StudentDAO();
 			List<Student> studentList = studentDAO.findAll();
 			req.getSession().setAttribute("studentList", studentList);
-		    req.getRequestDispatcher("view/admin/studentList.jsp").forward(req, resp);
+			req.getRequestDispatcher("view/admin/studentList.jsp").forward(req, resp);
 			return;
-		}
-
-		else if (action.equals("student_classroomList")) {
+		} else if (action.equals("student_classroomList")) {
 			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
 			List<Student_classroom> student_classroomList = student_classroomDAO.findAll();
 			req.setAttribute("student_classroomList", student_classroomList);
 			req.getRequestDispatcher("view/admin/student_classroomList.jsp").forward(req, resp);
 			return;
-		}
-		
-		else if (action.equals("accountList")) {
+		} else if (action.equals("accountList")) {
 			AccountDAO accountDAO = new AccountDAO();
 			List<Account> accountList = accountDAO.findAll();
 			req.getSession().setAttribute("accountList", accountList);
 			req.getRequestDispatcher("view/admin/accountList.jsp").forward(req, resp);
 			return;
-		}
-
-		else if (action.equals("searchTeacher")) {
+		} else if (action.equals("searchTeacher")) {
 			String teacherID = req.getParameter("teacherID");
 			TeacherDAO teacherDAO = new TeacherDAO();
 			Teacher teacher = teacherDAO.findById(teacherID);
@@ -85,9 +75,7 @@ public class AdminController extends HttpServlet {
 			}
 			req.getRequestDispatcher("view/admin/teacherList.jsp").forward(req, resp);
 			return;
-		}
-
-		else if (action.equals("searchClassroom")) {
+		} else if (action.equals("searchClassroom")) {
 			String classroomID = req.getParameter("classroomID");
 			ClassroomDAO classroomDAO = new ClassroomDAO();
 			Classroom classroom = classroomDAO.findByID(classroomID);
@@ -99,9 +87,7 @@ public class AdminController extends HttpServlet {
 			}
 			req.getRequestDispatcher("view/admin/classroomList.jsp").forward(req, resp);
 			return;
-		}
-
-		else if (action.equals("searchStudent")) {
+		} else if (action.equals("searchStudent")) {
 			String studentID = req.getParameter("studentID");
 			StudentDAO studentDAO = new StudentDAO();
 			Student student = studentDAO.findByID(studentID);
@@ -113,9 +99,7 @@ public class AdminController extends HttpServlet {
 			}
 			req.getRequestDispatcher("view/admin/studentList.jsp").forward(req, resp);
 			return;
-		}
-
-		else if (action.equals("searchStudentListByClassroomID")) {
+		} else if (action.equals("searchStudentListByClassroomID")) {
 			String classroomID = req.getParameter("classroomID");
 			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
 			List<Student_classroom> student_classroomList = student_classroomDAO.findByID(classroomID, null);
@@ -125,9 +109,7 @@ public class AdminController extends HttpServlet {
 			}
 			req.getRequestDispatcher("view/admin/student_classroomList.jsp").forward(req, resp);
 			return;
-		}
-		
-		else if (action.equals("searchClassroomListByStudentID")) {
+		} else if (action.equals("searchClassroomListByStudentID")) {
 			String studentID = req.getParameter("studentID");
 			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
 			List<Student_classroom> student_classroomList = student_classroomDAO.findByID(null, studentID);
@@ -137,9 +119,7 @@ public class AdminController extends HttpServlet {
 			}
 			req.getRequestDispatcher("view/admin/student_classroomList.jsp").forward(req, resp);
 			return;
-		}
-		
-		else if (action.equals("searchAccount")) {
+		} else if (action.equals("searchAccount")) {
 			String accountID = req.getParameter("accountID");
 			AccountDAO accountDAO = new AccountDAO();
 			Account account = accountDAO.findByID(accountID);
@@ -151,108 +131,78 @@ public class AdminController extends HttpServlet {
 			}
 			req.getRequestDispatcher("view/admin/accountList.jsp").forward(req, resp);
 			return;
-		}
-
-		else if (action.equals("addTeacherForm")) {
-		    req.getRequestDispatcher("view/admin/addTeacher.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("addClassroomForm")) {
-		    req.getRequestDispatcher("view/admin/addClassroom.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("addStudentForm")) {
-		    req.getRequestDispatcher("view/admin/addStudent.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("addStudent_classroomForm")) {
-		    req.getRequestDispatcher("view/admin/addStudent_classroom.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("addAccountForm")) {
-		    req.getRequestDispatcher("view/admin/addAccount.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("updateTeacherForm")) {
-		    String teacherID = req.getParameter("teacherID");
-		    TeacherDAO teacherDAO = new TeacherDAO();
-		    Teacher teacher = teacherDAO.findById(teacherID);
-		    req.setAttribute("teacher", teacher);
-		    req.getRequestDispatcher("view/admin/updateTeacher.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("updateClassroomForm")) {
-		    String classroomID = req.getParameter("classroomID");
-		    ClassroomDAO classroomDAO = new ClassroomDAO();
-		    Classroom classroom = classroomDAO.findByID(classroomID);
-		    req.setAttribute("classroom", classroom);
-		    req.getRequestDispatcher("view/admin/updateClassroom.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("updateStudentForm")) {
-		    String studentID = req.getParameter("studentID");
-		    StudentDAO studentDAO = new StudentDAO();
-		    Student student = studentDAO.findByID(studentID);
-		    req.setAttribute("student", student);
-		    req.getRequestDispatcher("view/admin/updateStudent.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("updateStudent_classroomForm")) {
-		    String studentID = req.getParameter("studentID");
-		    String classroomID = req.getParameter("classroomID");
-		    Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
-		    Student_classroom student_classroom = student_classroomDAO.findByID(classroomID, studentID).get(0);
-		    req.setAttribute("student_classroom", student_classroom);
-		    req.getRequestDispatcher("view/admin/updateStudent_classroom.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("updateAccountForm")) {
-		    String accountID = req.getParameter("accountID");
-		    AccountDAO accountDAO = new AccountDAO();
-		    Account account = accountDAO.findByID(accountID);
-		    req.setAttribute("account", account);
-		    req.getRequestDispatcher("view/admin/updateAccount.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("deleteTeacherForm")) {
+		} else if (action.equals("addTeacherForm")) {
+			req.getRequestDispatcher("view/admin/addTeacher.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("addClassroomForm")) {
+			req.getRequestDispatcher("view/admin/addClassroom.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("addStudentForm")) {
+			req.getRequestDispatcher("view/admin/addStudent.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("addStudent_classroomForm")) {
+			req.getRequestDispatcher("view/admin/addStudent_classroom.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("addAccountForm")) {
+			req.getRequestDispatcher("view/admin/addAccount.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("updateTeacherForm")) {
 			String teacherID = req.getParameter("teacherID");
-		    req.setAttribute("teacherID", teacherID);
-		    req.getRequestDispatcher("view/admin/deleteTeacher.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("deleteClassroomForm")) {
+			TeacherDAO teacherDAO = new TeacherDAO();
+			Teacher teacher = teacherDAO.findById(teacherID);
+			req.setAttribute("teacher", teacher);
+			req.getRequestDispatcher("view/admin/updateTeacher.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("updateClassroomForm")) {
 			String classroomID = req.getParameter("classroomID");
-		    req.setAttribute("classroomID", classroomID);
-		    req.getRequestDispatcher("view/admin/deleteClassroom.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("deleteStudentForm")) {
+			ClassroomDAO classroomDAO = new ClassroomDAO();
+			Classroom classroom = classroomDAO.findByID(classroomID);
+			req.setAttribute("classroom", classroom);
+			req.getRequestDispatcher("view/admin/updateClassroom.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("updateStudentForm")) {
 			String studentID = req.getParameter("studentID");
-		    req.setAttribute("studentID", studentID);
-		    req.getRequestDispatcher("view/admin/deleteStudent.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("deleteAccountForm")) {
+			StudentDAO studentDAO = new StudentDAO();
+			Student student = studentDAO.findByID(studentID);
+			req.setAttribute("student", student);
+			req.getRequestDispatcher("view/admin/updateStudent.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("updateStudent_classroomForm")) {
+			String studentID = req.getParameter("studentID");
+			String classroomID = req.getParameter("classroomID");
+			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
+			Student_classroom student_classroom = student_classroomDAO.findByID(classroomID, studentID).get(0);
+			req.setAttribute("student_classroom", student_classroom);
+			req.getRequestDispatcher("view/admin/updateStudent_classroom.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("updateAccountForm")) {
 			String accountID = req.getParameter("accountID");
-		    req.setAttribute("accountID", accountID);
-		    req.getRequestDispatcher("view/admin/deleteAccount.jsp").forward(req, resp);
-		    return;
-		}
-		
-		else if (action.equals("dashboard")) {
+			AccountDAO accountDAO = new AccountDAO();
+			Account account = accountDAO.findByID(accountID);
+			req.setAttribute("account", account);
+			req.getRequestDispatcher("view/admin/updateAccount.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("deleteTeacherForm")) {
+			String teacherID = req.getParameter("teacherID");
+			req.setAttribute("teacherID", teacherID);
+			req.getRequestDispatcher("view/admin/deleteTeacher.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("deleteClassroomForm")) {
+			String classroomID = req.getParameter("classroomID");
+			req.setAttribute("classroomID", classroomID);
+			req.getRequestDispatcher("view/admin/deleteClassroom.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("deleteStudentForm")) {
+			String studentID = req.getParameter("studentID");
+			req.setAttribute("studentID", studentID);
+			req.getRequestDispatcher("view/admin/deleteStudent.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("deleteAccountForm")) {
+			String accountID = req.getParameter("accountID");
+			req.setAttribute("accountID", accountID);
+			req.getRequestDispatcher("view/admin/deleteAccount.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("dashboard")) {
 			StudentDAO studentDAO = new StudentDAO();
 			int totalStudent = studentDAO.totalStudent();
 			ClassroomDAO classroomDAO = new ClassroomDAO();
@@ -265,11 +215,10 @@ public class AdminController extends HttpServlet {
 			req.setAttribute("totalClassroom", totalClassroom);
 			req.setAttribute("totalTeacher", totalTeacher);
 			req.setAttribute("totalAccount", totalAccount);
-			System.out.println(totalStudent);
 			req.getRequestDispatcher("view/admin/dashboard.jsp").forward(req, resp);
 			return;
 		}
-		
+
 		req.getRequestDispatcher("view/admin/dashboard.jsp").forward(req, resp);
 	}
 
@@ -279,7 +228,7 @@ public class AdminController extends HttpServlet {
 		resp.setContentType("text/html;charset=UTF-8");
 
 		String action = req.getParameter("action");
-		
+
 		if (action.equals("addTeacher")) {
 			TeacherDAO teacherDAO = new TeacherDAO();
 			StringBuilder message = new StringBuilder();
@@ -307,9 +256,7 @@ public class AdminController extends HttpServlet {
 			teacherDAO.insert(teacher);
 			resp.sendRedirect("admin?action=teacherList");
 			return;
-		}
-
-		else if (action.equals("addClassroom")) {
+		} else if (action.equals("addClassroom")) {
 			ClassroomDAO classroomDAO = new ClassroomDAO();
 			TeacherDAO teacherDAO = new TeacherDAO();
 			StringBuilder message = new StringBuilder();
@@ -335,9 +282,7 @@ public class AdminController extends HttpServlet {
 			classroomDAO.insert(classroom);
 			resp.sendRedirect("admin?action=classroomList");
 			return;
-		}
-
-		else if (action.equals("addStudent")) {
+		} else if (action.equals("addStudent")) {
 			StudentDAO studentDAO = new StudentDAO();
 			StringBuilder message = new StringBuilder();
 
@@ -346,8 +291,6 @@ public class AdminController extends HttpServlet {
 			} else if (studentDAO.isEmailExists(req.getParameter("email"), req.getParameter("studentID"))) {
 				message.append("Email đã tồn tại!<br>");
 			}
-			System.out.println(req.getParameter("email"));
-			System.out.println(req.getParameter("studentID"));
 			Student student = new Student();
 			student.setStudentID(req.getParameter("studentID"));
 			student.setName(req.getParameter("name"));
@@ -365,9 +308,7 @@ public class AdminController extends HttpServlet {
 			studentDAO.insert(student);
 			resp.sendRedirect("admin?action=studentList");
 			return;
-		}
-
-		else if (action.equals("addStudent_classroom")) {
+		} else if (action.equals("addStudent_classroom")) {
 			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
 			StudentDAO studentDAO = new StudentDAO();
 			ClassroomDAO classroomDAO = new ClassroomDAO();
@@ -375,8 +316,7 @@ public class AdminController extends HttpServlet {
 
 			if (classroomDAO.findByID(req.getParameter("classroomID")) == null) {
 				message.append("Mã lớp không tồn tại!<br>");
-			}
-			else if (studentDAO.findByID(req.getParameter("studentID")) == null) {
+			} else if (studentDAO.findByID(req.getParameter("studentID")) == null) {
 				message.append("Mã sinh viên không tồn tại!<br>");
 			}
 
@@ -394,9 +334,7 @@ public class AdminController extends HttpServlet {
 			student_classroomDAO.insert(student_classroom);
 			resp.sendRedirect("admin?action=student_classroomList");
 			return;
-		}
-		
-		else if (action.equals("addAccount")) {
+		} else if (action.equals("addAccount")) {
 			AccountDAO accountDAO = new AccountDAO();
 			StudentDAO studentDAO = new StudentDAO();
 			StringBuilder message = new StringBuilder();
@@ -428,9 +366,7 @@ public class AdminController extends HttpServlet {
 			accountDAO.insert(account);
 			resp.sendRedirect("admin?action=accountList");
 			return;
-		}
-
-		else if (action.equals("updateTeacher")) {
+		} else if (action.equals("updateTeacher")) {
 			TeacherDAO teacherDAO = new TeacherDAO();
 			StringBuilder message = new StringBuilder();
 
@@ -455,9 +391,7 @@ public class AdminController extends HttpServlet {
 			teacherDAO.update(teacher);
 			resp.sendRedirect("admin?action=teacherList");
 			return;
-		}
-
-		else if (action.equals("updateClassroom")) {
+		} else if (action.equals("updateClassroom")) {
 			ClassroomDAO classroomDAO = new ClassroomDAO();
 			TeacherDAO teacherDAO = new TeacherDAO();
 			StringBuilder message = new StringBuilder();
@@ -481,9 +415,7 @@ public class AdminController extends HttpServlet {
 			classroomDAO.update(classroom);
 			resp.sendRedirect("admin?action=classroomList");
 			return;
-		}
-
-		else if (action.equals("updateStudent")) {
+		} else if (action.equals("updateStudent")) {
 			StudentDAO studentDAO = new StudentDAO();
 			StringBuilder message = new StringBuilder();
 
@@ -508,17 +440,17 @@ public class AdminController extends HttpServlet {
 			studentDAO.update(student);
 			resp.sendRedirect("admin?action=studentList");
 			return;
-		}
-		
-		else if (action.equals("updateStudent_classroom")) {
+		} else if (action.equals("updateStudent_classroom")) {
 			StudentDAO studentDAO = new StudentDAO();
 			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
 			StringBuilder message = new StringBuilder();
 
 			if (studentDAO.findByID(req.getParameter("studentID")) == null) {
 				message.append("Mã SV không tồn tại!<br>");
-			} else if (!student_classroomDAO.findByID(req.getParameter("oldClassroomID"), req.getParameter("studentID")).isEmpty()) {
-				message.append("Sinh viên có mã " + req.getParameter("studentID") + " đang học lớp " + req.getParameter("oldClassroomID") + "!<br>");
+			} else if (!student_classroomDAO.findByID(req.getParameter("oldClassroomID"), req.getParameter("studentID"))
+					.isEmpty()) {
+				message.append("Sinh viên có mã " + req.getParameter("studentID") + " đang học lớp "
+						+ req.getParameter("oldClassroomID") + "!<br>");
 			}
 
 			Student_classroom student_classroom = new Student_classroom();
@@ -532,19 +464,19 @@ public class AdminController extends HttpServlet {
 				return;
 			}
 
-			student_classroomDAO.update(student_classroom, req.getParameter("oldClassroomID"), req.getParameter("oldStudentID"));
+			student_classroomDAO.update(student_classroom, req.getParameter("oldClassroomID"),
+					req.getParameter("oldStudentID"));
 			resp.sendRedirect("admin?action=student_classroomList");
 			return;
-		}
-		
-		else if (action.equals("updateAccount")) {
+		} else if (action.equals("updateAccount")) {
 			AccountDAO accountDAO = new AccountDAO();
 			StudentDAO studentDAO = new StudentDAO();
 			StringBuilder message = new StringBuilder();
-			
+
 			if (accountDAO.isUsernameExists(req.getParameter("username"), req.getParameter("accountID"))) {
 				message.append("Tên tài khoản đã được sử dụng!<br>");
-			} else if (accountDAO.isStudentIDUsed(req.getParameter("studentID"), req.getParameter("oldStudentID"), req.getParameter("role"))) {
+			} else if (accountDAO.isStudentIDUsed(req.getParameter("studentID"), req.getParameter("oldStudentID"),
+					req.getParameter("role"))) {
 				message.append("Mã sinh viên đã được sử dụng!<br>");
 			} else if (!studentDAO.isStudentExists(req.getParameter("studentID"), req.getParameter("role"))) {
 				message.append("Mã sinh viên không tồn tại!<br>");
@@ -567,38 +499,28 @@ public class AdminController extends HttpServlet {
 			accountDAO.update(account);
 			resp.sendRedirect("admin?action=accountList");
 			return;
-		}
-		
-		else if (action.equals("deleteTeacher")) {
+		} else if (action.equals("deleteTeacher")) {
 			TeacherDAO teacherDAO = new TeacherDAO();
 			teacherDAO.delete(req.getParameter("teacherID"));
 			resp.sendRedirect("admin?action=teacherList");
 			return;
-		}
-
-		else if (action.equals("deleteClassroom")) {
+		} else if (action.equals("deleteClassroom")) {
 			ClassroomDAO classroomDAO = new ClassroomDAO();
 			classroomDAO.delete(req.getParameter("classroomID"));
 			resp.sendRedirect("admin?action=classroomList");
 			return;
-		}
-
-		else if (action.equals("deleteStudent")) {
+		} else if (action.equals("deleteStudent")) {
 			StudentDAO studentDAO = new StudentDAO();
 			studentDAO.delete(req.getParameter("studentID"));
 			resp.sendRedirect("admin?action=studentList");
 			return;
-		}
-
-		else if (action.equals("deleteStudent_classroom")) {
+		} else if (action.equals("deleteStudent_classroom")) {
 			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
 
 			student_classroomDAO.delete(req.getParameter("classroomID"), req.getParameter("studentID"));
 			resp.sendRedirect("admin?action=student_classroomList");
 			return;
-		}
-		
-		else if (action.equals("deleteAccount")) {
+		} else if (action.equals("deleteAccount")) {
 			AccountDAO accountDAO = new AccountDAO();
 			accountDAO.delete(req.getParameter("accountID"));
 			resp.sendRedirect("admin?action=accountList");

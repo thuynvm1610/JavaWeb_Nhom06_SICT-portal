@@ -11,7 +11,7 @@ import model.Student_classroom;
 import util.DBConnect;
 
 public class Student_classroomDAO {
-	
+
 	public List<Student_classroom> findAll() {
 		String sql = "select * from student_classroom";
 		DBConnect dbConn = new DBConnect();
@@ -59,8 +59,7 @@ public class Student_classroomDAO {
 				e.printStackTrace();
 				return null;
 			}
-		}
-		else if (classroomID == null && studentID != null) {
+		} else if (classroomID == null && studentID != null) {
 			String sql = "select * from student_classroom where studentID = ?";
 			DBConnect dbConn = new DBConnect();
 			try {
@@ -81,8 +80,7 @@ public class Student_classroomDAO {
 				e.printStackTrace();
 				return null;
 			}
-		}
-		else if (classroomID != null && studentID != null) {
+		} else if (classroomID != null && studentID != null) {
 			String sql = "select * from student_classroom where classroomID = ? and studentID = ?";
 
 			DBConnect dbConn = new DBConnect();
@@ -106,7 +104,7 @@ public class Student_classroomDAO {
 				return null;
 			}
 		}
-		return student_classroomList;				
+		return student_classroomList;
 	}
 
 	public boolean insert(Student_classroom student_classroom) {
@@ -164,5 +162,5 @@ public class Student_classroomDAO {
 		}
 		return true;
 	}
-	
+
 }

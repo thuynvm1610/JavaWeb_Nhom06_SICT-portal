@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnect {
-	
+
 	public Connection getConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -18,5 +18,5 @@ public class DBConnect {
 			return null;
 		}
 	}
-	
+
 }

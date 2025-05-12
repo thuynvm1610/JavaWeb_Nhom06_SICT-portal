@@ -126,9 +126,8 @@ public class StudentDAO {
 	}
 
 	public boolean isEmailExists(String email, String studentID) {
-		String sql = "select email from student where email = ? and studentID != ? "
-	               + "union "
-	               + "select email from teacher where email = ?";
+		String sql = "select email from student where email = ? and studentID != ? " + "union "
+				+ "select email from teacher where email = ?";
 		DBConnect dbConn = new DBConnect();
 
 		try {
@@ -150,7 +149,8 @@ public class StudentDAO {
 	}
 
 	public boolean isStudentExists(String studentID, String role) {
-		if (role.equals("admin")) return true;
+		if (role.equals("admin"))
+			return true;
 		else {
 			String sql = "select studentID from student where studentID = ?";
 			DBConnect dbConn = new DBConnect();
@@ -191,5 +191,5 @@ public class StudentDAO {
 			return 0;
 		}
 	}
-	
+
 }
