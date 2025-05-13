@@ -11,12 +11,40 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+    <style>
+        .alert-success {
+            background-color: #e0f7e9;
+            color: #2e7d32;
+            border: 1px solid #2e7d32;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
     <c:if test="${not empty message}">
         <div class="alert-error">
             &#9888; ${message}
+        </div>
+    </c:if>
+    <c:if test="${not empty succeedAddMessage}">
+        <div class="alert-success">
+            &#9989; ${succeedAddMessage}
+        </div>
+    </c:if>
+    <c:if test="${not empty succeedUpdateMessage}">
+        <div class="alert-success">
+            &#9989; ${succeedUpdateMessage}
+        </div>
+    </c:if>
+    <c:if test="${not empty succeedDeleteMessage}">
+        <div class="alert-success">
+            &#9989; ${succeedDeleteMessage}
         </div>
     </c:if>
     <div class="container-fluid">
