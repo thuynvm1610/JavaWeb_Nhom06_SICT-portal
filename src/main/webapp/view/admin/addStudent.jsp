@@ -179,6 +179,15 @@
                                                                         <i class="fas fa-trash"></i>
                                                                     </button>
                                                                 </form>
+                                                                <form method="get" action="admin">
+                                                                    <input type="hidden" name="action"
+                                                                        value="searchClassroomListByStudentID" />
+                                                                    <input type="hidden" name="studentID"
+                                                                        value="${s.studentID}" />
+                                                                    <button class="btn btn-sm btn-info" type="submit">
+                                                                        <i class="fas fa-eye"></i>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </td>
                                                     </tr>

@@ -67,7 +67,7 @@ public class AdminController extends HttpServlet {
 			if (teacher != null) {
 				req.setAttribute("teacherList", List.of(teacher));
 			} else {
-				req.setAttribute("message", "Không tìm thấy giáo viên có mã: " + teacherID);
+				req.setAttribute("message", "Không tìm thấy giáo viên " + teacherID);
 				req.setAttribute("teacherList", List.of());
 			}
 			req.getRequestDispatcher("view/admin/teacherList.jsp").forward(req, resp);
@@ -96,6 +96,28 @@ public class AdminController extends HttpServlet {
 			}
 			req.getRequestDispatcher("view/admin/studentList.jsp").forward(req, resp);
 			return;
+		} else if (action.equals("searchClassroomListByTeacherID")) {
+			String teacherID = req.getParameter("teacherID");
+			ClassroomDAO classroomDAO = new ClassroomDAO();
+			List<Classroom> classroomList = classroomDAO.findByTeacherID(teacherID);
+			req.setAttribute("classroomList", classroomList);
+			req.setAttribute("teacherID", teacherID);
+			if (classroomList.isEmpty()) {	
+				req.setAttribute("message", "Giáo viên " + teacherID + " hiện chưa dạy lớp nào!");
+			}
+			req.getRequestDispatcher("view/admin/classroomListByTeacherID.jsp").forward(req, resp);
+			return;
+		} else if (action.equals("searchClassroomListByStudentID")) {
+			String studentID = req.getParameter("studentID");
+			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
+			List<Student_classroom> student_classroomList = student_classroomDAO.findByID(null, studentID);
+			req.setAttribute("student_classroomList", student_classroomList);
+			req.setAttribute("studentID", studentID);
+			if (student_classroomList.isEmpty()) {
+				req.setAttribute("message", "Sinh viên " + req.getParameter("studentID") + " hiện chưa học lớp nào");
+			}
+			req.getRequestDispatcher("view/admin/classroomListByStudentID.jsp").forward(req, resp);
+			return;
 		} else if (action.equals("searchStudentListByClassroomID")) {
 			String classroomID = req.getParameter("classroomID");
 			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
@@ -106,17 +128,6 @@ public class AdminController extends HttpServlet {
 				req.setAttribute("message", "Không tìm thấy lớp học có mã: " + classroomID);
 			}
 			req.getRequestDispatcher("view/admin/studentListByClassroomID.jsp").forward(req, resp);
-			return;
-		} else if (action.equals("searchClassroomListByStudentID")) {
-			String studentID = req.getParameter("studentID");
-			Student_classroomDAO student_classroomDAO = new Student_classroomDAO();
-			List<Student_classroom> student_classroomList = student_classroomDAO.findByID(null, studentID);
-			req.setAttribute("student_classroomList", student_classroomList);
-			req.setAttribute("studentID", studentID);
-			if (student_classroomList.isEmpty()) {
-				req.setAttribute("message", "Không tìm thấy sinh viên có mã: " + req.getParameter("studentID"));
-			}
-			req.getRequestDispatcher("view/admin/classroomListByStudentID.jsp").forward(req, resp);
 			return;
 		} else if (action.equals("searchAccount")) {
 			String accountID = req.getParameter("accountID");
@@ -232,7 +243,7 @@ public class AdminController extends HttpServlet {
 			if (teacherDAO.findById(req.getParameter("teacherID")) != null) {
 				message.append("Mã giáo viên đã tồn tại!<br>");
 			} else if (teacherDAO.isEmailExists(req.getParameter("email"), req.getParameter("teacherID"))) {
-				message.append("Email đã tồn tại!<br>");
+				message.append("Email đã được sử dụng!<br>");
 			}
 
 			Teacher teacher = new Teacher();

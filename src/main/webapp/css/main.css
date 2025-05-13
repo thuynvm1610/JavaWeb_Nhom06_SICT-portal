@@ -73,3 +73,15 @@
 	display: flex;
 	align-items: center;
 }
+
+.alert-info {
+	background-color: #e7f3fe;
+	color: #31708f;
+	border: 1px solid #bce8f1;
+	padding: 10px 15px;
+	border-radius: 5px;
+	margin: 10px 0;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+}
