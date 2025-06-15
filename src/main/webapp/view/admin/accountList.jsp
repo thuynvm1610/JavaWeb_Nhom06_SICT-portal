@@ -185,6 +185,7 @@
                                                     <tr>
                                                         <th><input type="checkbox" id="checkAll" onclick="toggle(this)">
                                                         </th>
+                                                        <th>STT</th>
                                                         <th>Mã tài khoản</th>
                                                         <th>Tên tài khoản</th>
                                                         <th>Mật khẩu</th>
@@ -194,10 +195,11 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="a" items="${accountList}">
+                                                    <c:forEach var="a" items="${accountList}" varStatus="loop">
                                                         <tr>
                                                             <td><input type="checkbox" name="accountIds"
                                                                     value="${a.accountID}"></td>
+                                                            <td>${loop.index + 1}</td>
                                                             <td>${a.accountID}</td>
                                                             <td>${a.username}</td>
                                                             <td>${a.password}</td>

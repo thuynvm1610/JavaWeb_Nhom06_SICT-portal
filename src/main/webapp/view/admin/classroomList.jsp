@@ -177,6 +177,7 @@
                                                     <tr>
                                                         <th><input type="checkbox" id="checkAll" onclick="toggle(this)">
                                                             </th>
+                                                        <th>STT</th>
                                                         <th>Mã lớp</th>
                                                         <th>Tên lớp</th>
                                                         <th>Mã GV</th>
@@ -184,10 +185,11 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="c" items="${classroomList}">
+                                                    <c:forEach var="c" items="${classroomList}" varStatus="loop">
                                                         <tr>
                                                             <td><input type="checkbox" name="classroomIds"
                                                                         value="${c.classroomID}"></td>
+                                                            <td>${loop.index + 1}</td>
                                                             <td>${c.classroomID}</td>
                                                             <td>${c.name}</td>
                                                             <td>${c.teacherID}</td>

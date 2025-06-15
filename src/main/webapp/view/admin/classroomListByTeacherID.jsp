@@ -126,14 +126,16 @@
                                         <table class="table table-striped table-hover">
                                             <thead>
                                                 <tr>
+                                                    <th>STT</th>
                                                     <th>Mã lớp</th>
                                                     <th>Tên lớp</th>
                                                     <th>Hành động</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:forEach var="c" items="${classroomList}">
+                                                <c:forEach var="c" items="${classroomList}" varStatus="loop">
                                                     <tr>
+                                                        <td>${loop.index + 1}</td>
                                                         <td>${c.classroomID}</td>
                                                         <td>${c.name}</td>
                                                         <td>

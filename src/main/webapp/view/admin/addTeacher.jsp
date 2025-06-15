@@ -160,6 +160,7 @@
                                                     <tr>
                                                         <th><input type="checkbox" id="checkAll" onclick="toggle(this)">
                                                         </th>
+                                                        <th>STT</th>
                                                         <th>Mã GV</th>
                                                         <th>Họ tên</th>
                                                         <th>Giới tính</th>
@@ -170,10 +171,11 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach var="t" items="${teacherList}">
+                                                    <c:forEach var="t" items="${teacherList}" varStatus="loop">
                                                         <tr>
                                                             <td><input type="checkbox" name="teacherIds"
                                                                     value="${t.teacherID}"></td>
+                                                            <td>${loop.index + 1}</td>
                                                             <td>${t.teacherID}</td>
                                                             <td>${t.name}</td>
                                                             <td>${t.gender}</td>

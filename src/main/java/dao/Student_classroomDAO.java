@@ -138,4 +138,26 @@ public class Student_classroomDAO {
 		return true;
 	}
 
+	public int studentCount(String classroomID) {
+		String sql = "select count(*) from student_classroom where classroomID = ?";
+		DBConnect dbConn = new DBConnect();
+		int count = 0;
+		try {
+			Connection conn = dbConn.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, classroomID);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			conn.close();
+			pstmt.close();
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 70;
+		}
+		return count;
+	}
+	
 }
