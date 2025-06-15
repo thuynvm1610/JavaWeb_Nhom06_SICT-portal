@@ -244,5 +244,53 @@ public class AccountDAO {
 		}
 		return accountList;
 	}
+
+	public List<Account> getAccountsPaginated(int start, int limit) {
+	    List<Account> accountList = new ArrayList<>();
+	    String sql = "select * from account limit ?, ?";
+	    DBConnect dbConn = new DBConnect();
+	    try {
+	    	Connection conn = dbConn.getConnection();
+	    	PreparedStatement pstmt = conn.prepareStatement(sql);
+	    	pstmt.setInt(1, start);
+	    	pstmt.setInt(2, limit);
+	        ResultSet rs = pstmt.executeQuery();
+	        while (rs.next()) {
+	        	Account account = new Account();
+				account.setAccountID(rs.getString("accountID"));
+				account.setUsername(rs.getString("username"));
+				account.setPassword(rs.getString("password"));
+				account.setRole(rs.getString("role"));
+				account.setStudentID(rs.getString("studentID"));
+				accountList.add(account);
+	        }
+	        conn.close();
+			pstmt.close();
+			rs.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return accountList;
+	}
+
+	public int countAccounts() {
+	    String sql = "select count(*) from account";
+	    DBConnect dbConn = new DBConnect();
+	    int result = 0;
+	    try {
+	    	Connection conn = dbConn.getConnection();
+	    	Statement stmt = conn.createStatement();
+	        ResultSet rs = stmt.executeQuery(sql);
+	        if (rs.next()) {
+	            result = rs.getInt(1);
+	        }
+	        conn.close();
+			rs.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return result;
+	}
+
 	
 }

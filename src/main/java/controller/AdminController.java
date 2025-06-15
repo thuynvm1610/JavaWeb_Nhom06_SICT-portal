@@ -153,9 +153,28 @@ public class AdminController extends HttpServlet {
 			req.getRequestDispatcher("view/admin/student_classroom.jsp").forward(req, resp);
 			return;
 		} else if (action.equals("accountList")) {
-			AccountDAO accountDAO = new AccountDAO();
-			List<Account> accountList = accountDAO.findAll();
+			AccountDAO accountDAO = new AccountDAO();		
+			int recordsPerPage = 30;
+			int currentPage = 1;
+
+			String pageStr = req.getParameter("page");
+			if (pageStr != null) {
+			    currentPage = Integer.parseInt(pageStr);
+			}
+			int start = (currentPage - 1) * recordsPerPage;
+
+			List<Account> accountList = accountDAO.getAccountsPaginated(start, recordsPerPage);
+			int totalRecords = accountDAO.countAccounts();
+			int totalPages = (int) Math.ceil(totalRecords * 1.0 / recordsPerPage);
+
+			req.setAttribute("accountList", accountList);
+			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("totalPages", totalPages);
+			
 			req.getSession().setAttribute("accountList", accountList);
+			req.getSession().setAttribute("currentPage", currentPage);
+			req.getSession().setAttribute("totalPages", totalPages);
+
 			String succeedAddMessage = (String) req.getSession().getAttribute("succeedAddMessage");
 			if (succeedAddMessage != null) {
 			    req.setAttribute("succeedAddMessage", succeedAddMessage);
@@ -327,6 +346,14 @@ public class AdminController extends HttpServlet {
 			req.getRequestDispatcher("view/admin/addStudent.jsp").forward(req, resp);
 			return;
 		} else if (action.equals("addAccountForm")) {
+			List<Account> accountList = (List<Account>) req.getSession().getAttribute("accountList");
+			int currentPage = (int) req.getSession().getAttribute("currentPage");
+			int totalPages = (int) req.getSession().getAttribute("totalPages");
+			
+			req.setAttribute("accountList", accountList);
+			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("totalPages", totalPages);
+			
 			req.getRequestDispatcher("view/admin/addAccount.jsp").forward(req, resp);
 			return;
 		} else if (action.equals("updateTeacherForm")) {
@@ -363,6 +390,14 @@ public class AdminController extends HttpServlet {
 			AccountDAO accountDAO = new AccountDAO();
 			Account account = accountDAO.findByID(accountID);
 			req.setAttribute("account", account);
+			List<Account> accountList = (List<Account>) req.getSession().getAttribute("accountList");
+			int currentPage = (int) req.getSession().getAttribute("currentPage");
+			int totalPages = (int) req.getSession().getAttribute("totalPages");
+			
+			req.setAttribute("accountList", accountList);
+			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("totalPages", totalPages);
+			
 			req.getRequestDispatcher("view/admin/updateAccount.jsp").forward(req, resp);
 			return;
 		} else if (action.equals("deleteTeacherForm")) {
@@ -393,6 +428,15 @@ public class AdminController extends HttpServlet {
 		} else if (action.equals("deleteAccountForm")) {
 			String accountID = req.getParameter("accountID");
 			req.setAttribute("accountID", accountID);
+			
+			List<Account> accountList = (List<Account>) req.getSession().getAttribute("accountList");
+			int currentPage = (int) req.getSession().getAttribute("currentPage");
+			int totalPages = (int) req.getSession().getAttribute("totalPages");
+			
+			req.setAttribute("accountList", accountList);
+			req.setAttribute("currentPage", currentPage);
+			req.setAttribute("totalPages", totalPages);
+			
 			req.getRequestDispatcher("view/admin/deleteAccount.jsp").forward(req, resp);
 			return;
 		} else if (action.equals("dashboard")) {
