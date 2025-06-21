@@ -1101,8 +1101,7 @@ insert into student values
 ('SV_0997', 'Bùi Quốc Thắng', 'Nam', '2001-01-31', 'thangbq3101@gmail.com', 'Thừa Thiên Huế'),
 ('SV_0998', 'Nguyễn Thủy', 'Nam', '2001-06-22', 'thuyn2206@gmail.com', 'Quảng Ngãi'),
 ('SV_0999', 'Đặng Ngọc Minh Tâm', 'Nữ', '2000-11-15', 'tamdnm1511@gmail.com', 'Quảng Nam'),
-('SV_1000', 'Dương Gia Phát', 'Nam', '2002-12-18', 'phatdg1812@gmail.com', 'Yên Bái'),
-('SV_1001', 'Dương Da Phát', 'Nam', '2002-12-18', 'phatdd1812@gmail.com', 'Yên Bái');
+('SV_1000', 'Dương Gia Phát', 'Nam', '2002-12-18', 'phatdg1812@gmail.com', 'Yên Bái');
 
 INSERT INTO student_classroom (classroomID, studentID) VALUES
     ('PTNV_01', 'SV_0042'),
